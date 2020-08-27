@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-5">
+    <h2>Bases</h2>
+    <table class="table table-hover">
+      <thead>
+        <th scope="col">Base</th>
+        <th scope="col">Leche</th>
+        <th scope="col">Sin Lactosa</th>
+        <th scope="col">Light</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let base of bases" (click)="selectBase(base)">
+          <td>{{base.baseName}}</td>
+          <td><input type="checkbox" name="isMilk" [(ngModel)]="base.isMilk" disabled /></td>
+          <td><input type="checkbox" name="isLactose" [(ngModel)]="base.isLactose" disabled /></td>
+          <td><input type="checkbox" name="isLight" [(ngModel)]="base.isLight" disabled /></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-warning" (click)="createNewBase()">Nueva</button>
+  </div>
+  <div class="col-md-5 col-md-offset-2">
+    <base-detail [base]="selectedBase" [createHandler]="createBase" [updateHandler]="updateBase"
+      [deleteHandler]="deleteBase">
+    </base-detail>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div *ngIf="flavor" class="row">
+  <div class="col-md-12">
+    <h2 *ngIf="flavor._id">Detalles del Sabor</h2>
+    <h2 *ngIf="!flavor._id">Nuevo Sabor</h2>
+  </div>
+</div>
+<div *ngIf="flavor" class="row">
+  <form class="col-md-12">
+    <div class="form-group">
+      <label for="flavorName">Nombre</label>
+      <input class="form-control" name="flavorName" [(ngModel)]="flavor.flavorName" placeholder="Nombre" required />
+    </div>
+    <div class="input-group mb-3">
+      <select name="baseSelect" [(ngModel)]="flavor.baseId" class="custom-select" id="baseSelect" required>
+        <option selected>Elige...</option>
+        <option *ngFor="let base of bases" [ngValue]="base._id">{{base.baseName}}
+        </option>
+      </select>
+      <div class="input-group-append">
+        <label class="input-group-text" for="baseSelect">Base</label>
+      </div>
+    </div>
+    <button class="btn btn-primary" *ngIf="!flavor._id" (click)="createFlavor(flavor)">Crear</button>
+    <button class="btn btn-info" *ngIf="flavor._id" (click)="updateFlavor(flavor)">Actualizar</button>
+    <button class="btn btn-danger" *ngIf="flavor._id" (click)="deleteFlavor(flavor._id)">Eliminar</button>
+  </form>
+</div>
