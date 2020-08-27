@@ -7,7 +7,7 @@
         <th scope="col">Base</th>
       </thead>
       <tbody>
-        <tr *ngFor="let flavor of flavors" (click)="selectFlavor(flavor)" (onmousehover)="updateBases()">
+        <tr *ngFor="let flavor of flavors" (click)="selectFlavor(flavor)">
           <td>{{flavor.flavorName}}</td>
           <td>{{flavor.baseName}}</td>
         </tr>

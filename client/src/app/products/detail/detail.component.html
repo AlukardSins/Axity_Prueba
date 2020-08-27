@@ -1,1 +1,27 @@
-<p>detail works!</p>
+<div *ngIf="product" class="row">
+  <div class="col-md-12">
+    <h2 *ngIf="product._id">Detalles del Producto</h2>
+    <h2 *ngIf="!product._id">Nuevo Producto</h2>
+  </div>
+</div>
+<div *ngIf="product" class="row">
+  <form class="col-md-12">
+    <div class="form-group">
+      <label for="productName">Nombre</label>
+      <input class="form-control" name="productName" [(ngModel)]="product.productName" placeholder="Nombre" required />
+    </div>
+    <div class="input-group mb-3">
+      <select name="flavorSelect" [(ngModel)]="product.flavorId" class="custom-select" id="flavorSelect" required>
+        <option selected>Elige...</option>
+        <option *ngFor="let flavor of flavors" [ngValue]="flavor._id">{{flavor.flavorName}} | {{flavor.baseName}}
+        </option>
+      </select>
+      <div class="input-group-append">
+        <label class="input-group-text" for="flavorSelect">Sabor</label>
+      </div>
+    </div>
+    <button class="btn btn-primary" *ngIf="!product._id" (click)="createProduct(product)">Crear</button>
+    <button class="btn btn-info" *ngIf="product._id" (click)="updateProduct(product)">Actualizar</button>
+    <button class="btn btn-danger" *ngIf="product._id" (click)="deleteProduct(product._id)">Eliminar</button>
+  </form>
+</div>

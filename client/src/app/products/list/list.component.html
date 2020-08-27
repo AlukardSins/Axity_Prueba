@@ -1,1 +1,25 @@
-<p>list works!</p>
+<div class="row">
+  <div class="col-md-5">
+    <h2>Productos</h2>
+    <table class="table table-hover">
+      <thead>
+        <th scope="col">Producto</th>
+        <th scope="col">Sabor</th>
+        <th scope="col">Base</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products" (click)="selectProduct(product)">
+          <td>{{product.productName}}</td>
+          <td>{{product.flavorName}}</td>
+          <td>{{product.baseName}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-warning" (click)="createNewProduct()">Nuevo</button>
+  </div>
+  <div class="col-md-5 col-md-offset-2">
+    <product-detail [product]="selectedProduct" [flavors]="flavors" [createHandler]="createProduct"
+      [updateHandler]="updateProduct" [deleteHandler]="deleteProduct">
+    </product-detail>
+  </div>
+</div>

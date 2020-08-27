@@ -1,66 +1,41 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 
 import { Product } from './product'
-import { URI } from '../config'
+
+import { Observable, throwError } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 
 @Injectable()
 export class ProductService {
-  private productURL = `${URI}/api/product`
+  private productURL = 'http://localhost:3000/api/product'
   constructor (private http: HttpClient) {}
 
-  createProduct (newProduct: Product): Promise<void | Product> {
-    return this.http
-      .post(`${this.productURL}/create`, newProduct)
-      .toPromise()
-      .then((res) => {
-        res as Product[]
-      })
-      .catch(this.handleError)
+  createProduct (newProduct: Product): Observable<Product> {
+    return this.http.post<Product>(`${this.productURL}/create`, newProduct).pipe(catchError(this.handleError))
   }
 
-  getAllProducts (): Promise<void | Product[]> {
-    return this.http
-      .get(`${this.productURL}/all`)
-      .toPromise()
-      .then((res) => {
-        res as Product[]
-      })
-      .catch(this.handleError)
+  getAllProducts (): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.productURL}/all`)
   }
 
-  getOneProduct (searchId: String): Promise<void | Product> {
-    return this.http
-      .get(`${this.productURL}/one/${searchId}`)
-      .toPromise()
-      .then((res) => {
-        res as Product
-      })
-      .catch(this.handleError)
+  getOneProduct (searchId: String): Observable<Product> {
+    return this.http.get<Product>(`${this.productURL}/one/${searchId}`)
   }
 
-  updateProduct (updateProduct: Product): Promise<void | Product> {
+  updateProduct (updateProduct: Product): Observable<Product> {
     return this.http
-      .patch(`${this.productURL}/update/${updateProduct._id}`, updateProduct)
-      .toPromise()
-      .then((res) => {
-        res as Product
-      })
-      .catch(this.handleError)
+      .patch<Product>(`${this.productURL}/update/${updateProduct._id}`, updateProduct)
+      .pipe(catchError(this.handleError))
   }
 
-  deleteProduct (deleteId: String): Promise<void | Product> {
-    return this.http
-      .delete(`${this.productURL}/delete/${deleteId}`)
-      .toPromise()
-      .then((res) => {
-        res as Product
-      })
-      .catch(this.handleError)
+  deleteProduct (deleteId: String): Observable<String> {
+    return this.http.delete<String>(`${this.productURL}/delete/${deleteId}`).pipe(catchError(this.handleError))
   }
 
-  private handleError (err: any) {
-    let errMsg = err.message ? err.message : err.status ? `${err.status} - ${err.statusText}` : 'Server error'
+  private handleError (err: HttpErrorResponse) {
+    let errMsg = err.error instanceof ErrorEvent ? err.error.message : `${err.status} - ${err.statusText}`
     console.log(errMsg)
+    return throwError(errMsg)
   }
 }

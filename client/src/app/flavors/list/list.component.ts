@@ -35,7 +35,7 @@ export class FlavorList implements OnInit {
       this.flavors.forEach((flavor, idx) => {
         this.bases.map((base) => {
           if (flavor.baseId === base._id) {
-            return (this.flavors[idx].baseName = base.baseName)
+            this.flavors[idx].baseName = base.baseName
           }
         })
       })
@@ -54,7 +54,7 @@ export class FlavorList implements OnInit {
     this.flavors.forEach((flavor, idx) => {
       this.bases.map((base) => {
         if (flavor.baseId === base._id) {
-          return (this.flavors[idx].baseName = base.baseName)
+          this.flavors[idx].baseName = base.baseName
         }
       })
     })

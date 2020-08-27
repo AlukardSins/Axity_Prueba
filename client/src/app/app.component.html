@@ -1,6 +1,12 @@
 <div class="container">
-  <flavor-list></flavor-list>
-</div>
-<div class="container">
-  <base-list></base-list>
+  <h1>{{title}}</h1>
+
+  <nav class="nav nav-pills nav-fill">
+    <a class="nav-item nav-link" routerLink="/products" routerLinkActive="active">Productos</a>
+    <a class="nav-item nav-link" routerLink="/flavors" routerLinkActive="active">Sabores</a>
+    <a class="nav-item nav-link" routerLink="/bases" routerLinkActive="active">Bases</a>
+  </nav>
+
+  <router-outlet></router-outlet>
+
 </div>
